@@ -17,8 +17,6 @@ import com.google.gson.reflect.TypeToken;
 
 public class ValueListService extends AbstractService<ValueList> {
 
-    private static final String TYPE = "valuelists";
-
     public ValueListService(final CoredataClient coredataClient,
                             final Client client,
                             final String baseUrl) {
@@ -51,20 +49,20 @@ public class ValueListService extends AbstractService<ValueList> {
      */
     public void generateEnumForValuelist(final String title)
             throws FileNotFoundException, UnsupportedEncodingException {
-        ValueList valueList = this.get(title);
+        final ValueList valueList = this.get(title);
 
-        String className = WordUtils.capitalizeFully(
+        final String className = WordUtils.capitalizeFully(
                 valueList.getName().replace("_", " ")).replace(" ", "");
 
-        EnumGenerator generator =
+        final EnumGenerator generator =
                 new EnumGenerator("com.bangsapabbi.api.valuelist.lists", className);
-        Map<String, String> input = new HashMap<>();
+       final  Map<String, String> input = new HashMap<>();
 
         for (ValueListEntry entry : valueList.getEntries()) {
             input.put(entry.getTranslations().get("en"), entry.getName());
         }
 
-        PrintWriter writer = new PrintWriter("src/main/java/com/bangsapabbi/api/valuelist/lists/"
+       final  PrintWriter writer = new PrintWriter("src/main/java/com/bangsapabbi/api/valuelist/lists/"
                 + className + ".java", "UTF-8");
         writer.println(generator.buildEnum(input));
         writer.close();

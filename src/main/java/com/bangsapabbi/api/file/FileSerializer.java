@@ -9,8 +9,10 @@ import com.google.gson.JsonSerializer;
 
 public class FileSerializer implements JsonSerializer<File> {
     @Override
-    public JsonElement serialize(final File file, final Type typeOfSrc, final JsonSerializationContext context) {
-        JsonObject returnValue = new JsonObject();
+    public JsonElement serialize(final File file,
+                                 final Type typeOfSrc,
+                                 final JsonSerializationContext context) {
+        final JsonObject returnValue = new JsonObject();
 
         returnValue.addProperty("title", file.getTitle());
         returnValue.addProperty("filename", file.getFilename());

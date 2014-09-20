@@ -25,9 +25,9 @@ public class ProjectService extends AbstractService<Project> {
     }
 
     public List<? extends File> getFilesForProject(final Project project) {
-        List<File> returnValue = Lists.newArrayList();
+        final List<File> returnValue = Lists.newArrayList();
 
-        ApiIterator<File> projectFileIterator
+        final ApiIterator<File> projectFileIterator
                 = new ApiIterator<>(getCoredataClient().getFileService(),
                 "/" + project.getUUID() + "/files", "projects");
         while (projectFileIterator.hasNext()) {

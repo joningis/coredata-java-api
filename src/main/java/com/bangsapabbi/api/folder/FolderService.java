@@ -18,7 +18,7 @@ public class FolderService extends AbstractV1Service<Folder> {
 
     @Override
     public Folder get(final String uuid) {
-        Folder value = super.get(uuid);
+        final Folder value = super.get(uuid);
         if (value.getType().equals("Folder")) {
             return value;
         } else {
@@ -35,13 +35,13 @@ public class FolderService extends AbstractV1Service<Folder> {
         return super.add(value);
     }
 
-    private String findProjectWorkspace(Project project) {
+    private String findProjectWorkspace(final Project project) {
         if (project.getWorkspaceUUID() == null) {
             final WebTarget myResource = client.target(baseUrl + "/api/document/"
                     + project.getUUID() + "/children/");
             final String response = myResource.request(MediaType.TEXT_PLAIN).get(String.class);
 
-            String workspaceId = response.split("\"type\": \"Workspace\"")[1].split("}")[0]
+            final String workspaceId = response.split("\"type\": \"Workspace\"")[1].split("}")[0]
                     .split("\"id\": \"")[1].split("\"")[0];
             project.setWorkspaceUUID(workspaceId);
         }

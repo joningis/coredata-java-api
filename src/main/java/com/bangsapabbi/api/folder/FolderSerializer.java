@@ -17,7 +17,7 @@ public class FolderSerializer implements JsonSerializer<Folder> {
                                  final Type typeOfSrc,
                                  final JsonSerializationContext context) {
 
-        JsonObject returnValue = new JsonObject();
+        final JsonObject returnValue = new JsonObject();
 
         returnValue.addProperty("filename", folder.getFilename());
         returnValue.addProperty("title", folder.getTitle());

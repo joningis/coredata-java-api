@@ -5,7 +5,6 @@ import javax.ws.rs.client.Client;
 import com.bangsapabbi.api.CoredataClient;
 import com.bangsapabbi.api.common.AbstractService;
 import com.bangsapabbi.api.common.ContainerImpl;
-import com.bangsapabbi.api.user.User;
 import com.google.gson.reflect.TypeToken;
 
 /**
@@ -17,6 +16,7 @@ public class ContactService extends AbstractService<Contact> {
                           final Client client,
                           final String baseUrl) {
         super(coredataClient, client, baseUrl, "contacts", Contact.class,
-                new TypeToken<ContainerImpl<Contact>>() {}.getType());
+                new TypeToken<ContainerImpl<Contact>>() {
+                }.getType());
     }
 }

@@ -37,13 +37,13 @@ public abstract class AbstractV1Service<T extends ApiDTO> extends AbstractServic
         final WebTarget target = client.target(baseUrl + "/api/document/"
                 + getParent(value) + "/children/");
 
-        Response response = target.request(MediaType.APPLICATION_JSON_TYPE)
+        final Response response = target.request(MediaType.APPLICATION_JSON_TYPE)
                 .post(Entity.json(getGson().toJson(value)));
 
-        String location = response.getHeaders().get("Location").get(0).toString();
-        String[] parts = location.split("/");
+        final String location = response.getHeaders().get("Location").get(0).toString();
+        final String[] parts = location.split("/");
 
-        String uuid = parts[parts.length - 1];
+        final String uuid = parts[parts.length - 1];
         value.setUUID(uuid);
 
         return uuid;

@@ -39,23 +39,23 @@ public class FileService extends AbstractService<File> {
         final WebTarget target = client.target(baseUrl + "/api/document/"
                 + value.getParent() + "/children/");
 
-        Response response = target.request(MediaType.APPLICATION_JSON_TYPE)
+        final Response response = target.request(MediaType.APPLICATION_JSON_TYPE)
                 .post(Entity.json(getGson().toJson(value)));
 
-        String location = response.getHeaders().get("Location").get(0).toString();
-        String[] parts = location.split("/");
+        final String location = response.getHeaders().get("Location").get(0).toString();
+        final String[] parts = location.split("/");
 
-        String uuid = parts[parts.length - 1];
+        final String uuid = parts[parts.length - 1];
         value.setUUID(uuid);
 
         return uuid;
     }
 
-    public void download(File file) {
+    public void download(final File file) {
         try {
             final WebTarget myResource = client.target(baseUrl + "/api/v2/" + getTypeString()
                     + "/" + file.getUUID() + "/content");
-            Response response = myResource.request(MediaType.APPLICATION_OCTET_STREAM).get();
+            final Response response = myResource.request(MediaType.APPLICATION_OCTET_STREAM).get();
 
             try (InputStream inputStream = (InputStream) response.getEntity()) {
 
@@ -63,7 +63,7 @@ public class FileService extends AbstractService<File> {
                              new FileOutputStream(new java.io.File(file.getFilename()))) {
 
                     int read;
-                    byte[] bytes = new byte[1024];
+                    final byte[] bytes = new byte[1024];
 
                     while ((read = inputStream.read(bytes)) != -1) {
                         outputStream.write(bytes, 0, read);
@@ -77,16 +77,16 @@ public class FileService extends AbstractService<File> {
 
     }
 
-    public void upload(File file) {
+    public void upload(final File file) {
 
         this.add(file);
 
         final WebTarget myResource = client.target(baseUrl + "/api/v2/" + getTypeString()
                 + "/" + file.getUUID() + "/content");
 
-        java.io.File uploadFile = new java.io.File("/tmp/hoff.png");
+        final java.io.File uploadFile = new java.io.File("/tmp/hoff.png");
 
-        Response response = myResource.request(MediaType.APPLICATION_OCTET_STREAM)
+        final Response response = myResource.request(MediaType.APPLICATION_OCTET_STREAM)
                 .put(Entity.entity(uploadFile, MediaType.APPLICATION_OCTET_STREAM));
 
     }

@@ -12,8 +12,6 @@ import com.google.gson.reflect.TypeToken;
  */
 public class SpaceService extends AbstractService<Space> {
 
-    private static final String TYPE = "spaces";
-
     public SpaceService(final CoredataClient coredataClient,
                         final Client client,
                         final String baseUrl) {

@@ -6,7 +6,7 @@ import com.google.common.collect.Maps;
 
 public class Search {
 
-    private Map<String, String> parameters;
+    private final Map<String, String> parameters;
 
     public Search() {
         this.parameters = Maps.newHashMap();

@@ -19,10 +19,8 @@ import com.bangsapabbi.api.folder.Folder;
 import com.bangsapabbi.api.folder.FolderSerializer;
 import com.bangsapabbi.api.task.Task;
 import com.bangsapabbi.api.task.TaskSerializer;
-import com.bangsapabbi.api.user.User;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
 
 /**
  * Abstract class that handles most of web service calls.
@@ -106,15 +104,15 @@ public abstract class AbstractService<T extends ApiDTO> implements Service<T> {
     public String add(final T value) {
         final WebTarget target = client.target(baseUrl + "/api/v2/" + getTypeString() + "/");
 
-        Response response = target.request(MediaType.APPLICATION_JSON_TYPE)
+        final Response response = target.request(MediaType.APPLICATION_JSON_TYPE)
                 .post(Entity.json(getGson().toJson(value)));
 
-        String location = response.getHeaders().get("Location").get(0).toString();
-        String[] parts = location.split("/");
-        String uuid = parts[parts.length - 1];
+        final String location = response.getHeaders().get("Location").get(0).toString();
+        final String[] parts = location.split("/");
+        final String uuid = parts[parts.length - 1];
 
         value.setUUID(uuid);
-
+/*
         System.out.println(location);
         System.out.println();
         System.out.println(getGson().toJson(value));
@@ -125,7 +123,7 @@ public abstract class AbstractService<T extends ApiDTO> implements Service<T> {
         System.out.println(response.getStatus());
         System.out.println(response.getEntity());
         System.out.println(new Gson().fromJson(response.readEntity(String.class), ErrorResponce.class));
-
+*/
         return uuid;
     }
 

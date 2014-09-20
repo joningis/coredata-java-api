@@ -16,7 +16,7 @@ public class TaskSerializer implements JsonSerializer<Task> {
                                  final Type typeOfSrc,
                                  final JsonSerializationContext context) {
 
-        JsonObject returnValue = new JsonObject();
+        final JsonObject returnValue = new JsonObject();
 
         returnValue.addProperty("project", task.getProject().getUUID());
         returnValue.addProperty("title", task.getTitle());
