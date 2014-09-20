@@ -39,7 +39,6 @@ public abstract class AbstractService<T extends ApiDTO> implements Service<T> {
     private final Type containerClass;
     private final CoredataClient coredataClient;
 
-    //TODO(joningi): This can be changed to fewer input parameters.
     public AbstractService(final CoredataClient coredataClient,
                            final Client client,
                            final String baseUrl,
@@ -103,8 +102,6 @@ public abstract class AbstractService<T extends ApiDTO> implements Service<T> {
         return container.getData();
     }
 
-    //TODO(joningi): Create repsonce object for users
-    //TODO(joningi): Exception handling here
     @Override
     public String add(final T value) {
         final WebTarget target = client.target(baseUrl + "/api/v2/" + getTypeString() + "/");

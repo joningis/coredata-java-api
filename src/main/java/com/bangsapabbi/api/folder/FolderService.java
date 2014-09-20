@@ -41,7 +41,6 @@ public class FolderService extends AbstractV1Service<Folder> {
                     + project.getUUID() + "/children/");
             final String response = myResource.request(MediaType.TEXT_PLAIN).get(String.class);
 
-            //TODO(joningi): Change out for regex...
             String workspaceId = response.split("\"type\": \"Workspace\"")[1].split("}")[0]
                     .split("\"id\": \"")[1].split("\"")[0];
             project.setWorkspaceUUID(workspaceId);

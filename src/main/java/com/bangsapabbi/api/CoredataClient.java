@@ -94,7 +94,6 @@ public class CoredataClient {
 
     public FolderService getFolderService() {
         if (this.folderService == null) {
-            //TODO(joningi): We can change this to a single parameter.
             this.folderService = new FolderService(this, this.client, this.baseUrl);
         }
         return folderService;

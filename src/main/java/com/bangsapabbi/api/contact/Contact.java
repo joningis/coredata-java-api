@@ -12,17 +12,6 @@ import com.google.gson.annotations.SerializedName;
  */
 public class Contact implements ApiDTO {
 
-    /**
-     * TODO(joningi): Implement
-     * {
-     * "aspects": {},
-     * "dynatype": {
-     * "caption_plural": "dynatypes_labels:Person_plural:",
-     * "caption_singular": "dynatypes_labels:Person_singular:",
-     * "id": "47acc536-3da1-11e4-b761-6003088b5c52"
-     * },
-     */
-
     @SerializedName("id")
     private String uuid;
     private String identifier;

@@ -9,16 +9,8 @@ import com.google.gson.annotations.SerializedName;
 
 /**
  * DTO for space.
- * TODO(joningi): See if we can use the old api to create space.
  */
 public class Space implements ApiDTO {
-
-    /*
-    TODO(joningi): Implement the following
-      "aspects": {},
-  "dynatype": {},
-  "is_hidden": null,
-     */
 
     @SerializedName("id")
     private String uuid;

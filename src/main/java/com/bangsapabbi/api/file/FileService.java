@@ -51,7 +51,6 @@ public class FileService extends AbstractService<File> {
         return uuid;
     }
 
-    //TODO(joningi): Need to be able to select download folder.
     public void download(File file) {
         try {
             final WebTarget myResource = client.target(baseUrl + "/api/v2/" + getTypeString()
@@ -82,7 +81,6 @@ public class FileService extends AbstractService<File> {
         final WebTarget myResource = client.target(baseUrl + "/api/v2/" + getTypeString()
                 + "/" + file.getUUID() + "/content");
 
-        //TODO(joningi): Get path from file
         java.io.File uploadFile = new java.io.File("/tmp/hoff.png");
 
         Response response = myResource.request(MediaType.APPLICATION_OCTET_STREAM)

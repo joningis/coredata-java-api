@@ -24,9 +24,6 @@ import com.google.gson.annotations.SerializedName;
  * "id": "21625558-38fb-11e4-9725-6003088b5c52"
  * },
  * }
- * TODO(joningi): Extract common fields to superclass.
- * TODO(joningi): Tasks can have files, can most likely use api v1 to get the files.
- * TODO(joningi): Add validation so we can say task.isValid() to check if the task can be added
  * This could include tests if uuid's are like they should be
  * Could have separate validation for just a valid object and if object is valid for add
  * or update.

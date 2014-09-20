@@ -11,22 +11,11 @@ import com.google.gson.annotations.SerializedName;
 
 /**
  * DTO for project.
- * TODO(joningi): Lazy load fields that are not loaded as part of other types.
+ * <p/>
  * This could be the case if we get a task then we only get basic info about project.
  * Hugsanlega hægt að skoða hvort type sé tómt og ef svo er loada, það ætti alltaf að koma í standard get
  */
 public class Project implements ApiDTO {
-
-    /**
-     * TODO(joningi): Implement the following
-     * "aspects": {},
-     * "associated_contacts_id": [],
-     * "dynatype": {
-     * "caption_plural": "dynatypes_labels:Project_plural:",
-     * "caption_singular": "dynatypes_labels:Project_singular:",
-     * "id": "4520c074-3da1-11e4-a26d-6003088b5c52"
-     * },
-     */
 
     @SerializedName("id")
     private String uuid;

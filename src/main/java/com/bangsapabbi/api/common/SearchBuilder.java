@@ -1,11 +1,6 @@
 package com.bangsapabbi.api.common;
 
 
-//TODO(joningi): Add datetime support (multiple types, java.util.Date and others)
-
-//TODO(joningi): test works as a parameter to tags, but we need array version to support multiple tags
-//TODO(joningi): Try out https://github.com/wordnik/swagger-codegen
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;

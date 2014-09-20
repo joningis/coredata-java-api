@@ -8,8 +8,6 @@ import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
 
 
-//TODO(joningi): Add rest of fields that can be changed.
-
 public class TaskSerializer implements JsonSerializer<Task> {
 
 
