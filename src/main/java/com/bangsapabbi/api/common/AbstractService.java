@@ -13,6 +13,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import com.bangsapabbi.api.CoredataClient;
+import com.bangsapabbi.api.comment.Comment;
 import com.bangsapabbi.api.comment.CommentSerializer;
 import com.bangsapabbi.api.file.File;
 import com.bangsapabbi.api.file.FileSerializer;
@@ -22,7 +23,6 @@ import com.bangsapabbi.api.task.Task;
 import com.bangsapabbi.api.task.TaskSerializer;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import sun.org.mozilla.javascript.internal.ast.Comment;
 
 /**
  * Abstract class that handles most of web service calls.
