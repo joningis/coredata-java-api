@@ -14,6 +14,7 @@ import javax.ws.rs.core.Response;
 import com.bangsapabbi.api.CoredataClient;
 import com.bangsapabbi.api.common.AbstractService;
 import com.bangsapabbi.api.common.ContainerImpl;
+import com.google.common.base.Preconditions;
 import com.google.gson.reflect.TypeToken;
 
 public class FileService extends AbstractService<File> {
@@ -52,8 +53,25 @@ public class FileService extends AbstractService<File> {
         return uuid;
     }
 
-    public void download(final File file) {
-        try {
+    /**
+     * Method to download file from coredata api.
+     *
+     * @param file       The file to download.
+     * @param outputFile The file to download to.
+     * @param overwrite  true if the outputFile should be overwritten if it exists
+     *                   false otherwise
+     * @return true if the download was successful, false otherwise.
+     */
+    public boolean download(final File file, final java.io.File outputFile, boolean overwrite)
+            throws IOException {
+
+        Preconditions.checkArgument(!outputFile.isDirectory(),
+                "The outputfile cannot be a directory");
+
+        if (outputFile.exists() && !overwrite) {
+            return false;
+        }
+
             final WebTarget myResource = client.target(baseUrl + "/api/v2/" + getTypeString()
                     + "/" + file.getUUID() + "/content");
             final Response response = myResource.request(MediaType.APPLICATION_OCTET_STREAM).get();
@@ -61,7 +79,7 @@ public class FileService extends AbstractService<File> {
             try (InputStream inputStream = (InputStream) response.getEntity()) {
 
                 try (OutputStream outputStream =
-                             new FileOutputStream(new java.io.File(file.getFilename()))) {
+                             new FileOutputStream(outputFile)) {
 
                     int read;
                     final byte[] bytes = new byte[1024];
@@ -72,18 +90,16 @@ public class FileService extends AbstractService<File> {
                 }
             }
 
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
+        return true;
     }
 
     /**
      * First uploads the metadata and then the content of the file.
+     *
      * @param file
      * @throws java.io.FileNotFoundException if the local path of the input file does not exist.
      */
-    public void upload(final File file) throws FileNotFoundException{
+    public void upload(final File file) throws FileNotFoundException {
 
         this.add(file);
 
@@ -92,8 +108,8 @@ public class FileService extends AbstractService<File> {
 
         final java.io.File uploadFile = new java.io.File(file.getLocalPath());
 
-            final Response response = myResource.request(MediaType.APPLICATION_OCTET_STREAM)
-                    .put(Entity.entity(uploadFile, MediaType.APPLICATION_OCTET_STREAM));
+        final Response response = myResource.request(MediaType.APPLICATION_OCTET_STREAM)
+                .put(Entity.entity(uploadFile, MediaType.APPLICATION_OCTET_STREAM));
 
     }
 }
