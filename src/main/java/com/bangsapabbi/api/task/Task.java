@@ -2,8 +2,10 @@ package com.bangsapabbi.api.task;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
+import javax.validation.ConstraintViolation;
 
-import com.bangsapabbi.api.common.ApiDTO;
+import com.bangsapabbi.api.common.AbstractInsertableDTO;
 import com.bangsapabbi.api.project.Project;
 import com.bangsapabbi.api.space.Space;
 import com.bangsapabbi.api.user.User;
@@ -28,31 +30,15 @@ import com.google.gson.annotations.SerializedName;
  * Could have separate validation for just a valid object and if object is valid for add
  * or update.
  */
-public class Task implements ApiDTO {
+public class Task extends AbstractInsertableDTO<Task> {
 
     @SerializedName("associated_users")
     private List<User> associatedUsers;
-
-    @SerializedName("id")
-    private String uuid;
 
     /**
      * UUID's of contacts.
      */
     private List<String> contacts;
-
-    private String description;
-
-
-    @SerializedName("created_by")
-    private String createdBy;
-
-    @SerializedName("modified_by")
-    private String modifiedBy;
-
-    private Date created;
-
-    private Date modified;
 
     @SerializedName("due_date")
     private Date dueDate;
@@ -61,9 +47,6 @@ public class Task implements ApiDTO {
     private Space space;
 
     private Project project;
-
-    @SerializedName("resource_uri")
-    private String resourceUri;
 
     private String title;
 
@@ -83,10 +66,6 @@ public class Task implements ApiDTO {
 
     private List<String> tags;
 
-    private String type;
-
-    private String version;
-
     public Task() {
         this.associatedUsers = Lists.newArrayList();
         this.contacts = Lists.newArrayList();
@@ -101,13 +80,6 @@ public class Task implements ApiDTO {
         this.associatedUsers = associatedUsers;
     }
 
-    public String getUUID() {
-        return uuid;
-    }
-
-    public void setUUID(final String id) {
-        this.uuid = id;
-    }
 
     public List<String> getContacts() {
         return contacts;
@@ -117,45 +89,12 @@ public class Task implements ApiDTO {
         this.contacts = contacts;
     }
 
-    public String getDescription() {
-        return description;
+
+    @Override
+    public Set<ConstraintViolation<Task>> getConstraintViolations() {
+        return this.getConstraintViolations(this);
     }
 
-    public void setDescription(final String description) {
-        this.description = description;
-    }
-
-    public String getCreatedBy() {
-        return createdBy;
-    }
-
-    public void setCreatedBy(final String createdBy) {
-        this.createdBy = createdBy;
-    }
-
-    public String getModifiedBy() {
-        return modifiedBy;
-    }
-
-    public void setModifiedBy(final String modifiedBy) {
-        this.modifiedBy = modifiedBy;
-    }
-
-    public Date getCreated() {
-        return created;
-    }
-
-    public void setCreated(final Date created) {
-        this.created = created;
-    }
-
-    public Date getModified() {
-        return modified;
-    }
-
-    public void setModified(final Date modified) {
-        this.modified = modified;
-    }
 
     public Date getDueDate() {
         return dueDate;
@@ -179,14 +118,6 @@ public class Task implements ApiDTO {
 
     public void setProject(final Project project) {
         this.project = project;
-    }
-
-    public String getResourceUri() {
-        return resourceUri;
-    }
-
-    public void setResourceUri(final String resourceUri) {
-        this.resourceUri = resourceUri;
     }
 
     public String getTitle() {
@@ -237,45 +168,29 @@ public class Task implements ApiDTO {
         this.tags = tags;
     }
 
-    public String getType() {
-        return type;
-    }
-
-    public void setType(final String type) {
-        this.type = type;
-    }
-
-    public String getVersion() {
-        return version;
-    }
-
-    public void setVersion(final String version) {
-        this.version = version;
-    }
-
     @Override
     public String toString() {
         return "Task{" +
                 "associatedUsers=" + associatedUsers +
-                ", uuid='" + uuid + '\'' +
+                ", uuid='" + getUUID() + '\'' +
                 ", contacts=" + contacts +
-                ", description='" + description + '\'' +
-                ", createdBy='" + createdBy + '\'' +
-                ", modifiedBy='" + modifiedBy + '\'' +
-                ", created=" + created +
-                ", modified=" + modified +
+                ", description='" + getDescription() + '\'' +
+                ", createdBy='" + getCreatedBy() + '\'' +
+                ", modifiedBy='" + getModifiedBy() + '\'' +
+                ", created=" + getCreated() +
+                ", modified=" + getModified() +
                 ", dueDate=" + dueDate +
                 ", space=" + space +
                 ", project=" + project +
-                ", resourceUri='" + resourceUri + '\'' +
+                ", resourceUri='" + getResourceUri() + '\'' +
                 ", title='" + title + '\'' +
                 ", connectedUsers=" + connectedUsers +
                 ", responsibleUsers=" + responsibleUsers +
                 ", status=" + status +
                 ", statusMessage='" + statusMessage + '\'' +
                 ", tags=" + tags +
-                ", type='" + type + '\'' +
-                ", version='" + version + '\'' +
+                ", type='" + getType() + '\'' +
+                ", version='" + getVersion() + '\'' +
                 '}';
     }
 }

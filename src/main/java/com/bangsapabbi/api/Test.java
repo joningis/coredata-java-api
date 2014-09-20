@@ -13,6 +13,7 @@ import com.bangsapabbi.api.common.Service;
 import com.bangsapabbi.api.contact.Contact;
 import com.bangsapabbi.api.file.File;
 import com.bangsapabbi.api.file.FileService;
+import com.bangsapabbi.api.folder.Folder;
 import com.bangsapabbi.api.folder.FolderService;
 import com.bangsapabbi.api.project.Project;
 import com.bangsapabbi.api.project.ProjectService;
@@ -61,28 +62,45 @@ public class Test {
 
         List<Project> projects = Lists.newArrayList(projectService.iterator());
 
-        File file = new File();
         if (!projects.isEmpty()) {
 
-            file.setTitle("hoff.png");
-            file.setFilename("hoff.png");
+            System.out.println("$$$$$$$$$$$$$$$$$$$");
+            Folder folder = new Folder();
+            if (!folder.isValidForPost()) {
+                System.out.println(folder.getViolationsAsString());
+            }
+            folder.setTitle("hoff2");
+            folder.setFilename("hoff2");
+            folder.setParentUUID(projectService.getWorkspaceUUID(projects.get(0)));
+            if (folder.isValidForPost()) {
+                folderService.add(folder);
+                System.out.println("Added folder");
+            }
+            System.out.println("$$$$$$$$$$$$$$$$$$$");
+
+
+            File file = new File();
+
+            file.setTitle("hoff2.png");
+            file.setFilename("hoff2.png");
             file.setLocalPath("/tmp/hoff.png");
             // File can not have parent as Project, it has to be the workspace of project.
-            file.setParent(projectService.getWorkspaceUUID(projects.get(0)));
+            file.setParent(folder.getUUID());
 
             try {
                 fileService.upload(file);
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
-        }
 
-        if(file.getUUID() != null) {
-            Comment comment = new Comment();
 
-            comment.setText("Test comment");
-            comment.setParentUUID(file.getUUID());
-            commentService.add(comment);
+            if (file.getUUID() != null) {
+                Comment comment = new Comment();
+
+                comment.setText("Test comment");
+                comment.setParentUUID(file.getUUID());
+                commentService.add(comment);
+            }
         }
     }
 }

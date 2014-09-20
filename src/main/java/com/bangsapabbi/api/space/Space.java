@@ -2,6 +2,9 @@ package com.bangsapabbi.api.space;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
+
+import javax.validation.ConstraintViolation;
 
 import com.bangsapabbi.api.common.ApiDTO;
 import com.bangsapabbi.api.valuelist.lists.SpaceStatus;

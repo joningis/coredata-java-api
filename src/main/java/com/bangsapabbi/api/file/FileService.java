@@ -14,6 +14,7 @@ import javax.ws.rs.core.Response;
 import com.bangsapabbi.api.CoredataClient;
 import com.bangsapabbi.api.common.AbstractService;
 import com.bangsapabbi.api.common.ContainerImpl;
+import com.bangsapabbi.api.common.Insertable;
 import com.google.common.base.Preconditions;
 import com.google.gson.reflect.TypeToken;
 
@@ -29,6 +30,7 @@ public class FileService extends AbstractService<File> {
     }
 
 
+
     /**
      * We overwrite this to be able to use the v1 api to insert files at all locations.
      * This includes projects, file spaces, tasks and folders.
@@ -37,9 +39,9 @@ public class FileService extends AbstractService<File> {
      * @return
      */
     @Override
-    public String add(final File value) {
+    public <S extends Insertable<File>> String add(final S value) {
         final WebTarget target = client.target(baseUrl + "/api/document/"
-                + value.getParent() + "/children/");
+                + value.getParentUUID() + "/children/");
 
         final Response response = target.request(MediaType.APPLICATION_JSON_TYPE)
                 .post(Entity.json(getGson().toJson(value)));
@@ -52,6 +54,7 @@ public class FileService extends AbstractService<File> {
 
         return uuid;
     }
+
 
     /**
      * Method to download file from coredata api.

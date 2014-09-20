@@ -32,10 +32,11 @@ public abstract class AbstractV1Service<T extends ApiDTO> extends AbstractServic
         throw new UnsupportedOperationException();
     }
 
+
     @Override
-    public String add(final T value) {
+    public <S extends Insertable<T>> String add(final S value) {
         final WebTarget target = client.target(baseUrl + "/api/document/"
-                + getParent(value) + "/children/");
+                + value.getParentUUID() + "/children/");
 
         final Response response = target.request(MediaType.APPLICATION_JSON_TYPE)
                 .post(Entity.json(getGson().toJson(value)));
@@ -48,9 +49,6 @@ public abstract class AbstractV1Service<T extends ApiDTO> extends AbstractServic
 
         return uuid;
     }
-
-    protected abstract String getParent(final T value);
-
 
     @Override
     public void delete(final String uuid) {

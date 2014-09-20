@@ -1,12 +1,10 @@
 package com.bangsapabbi.api.folder;
 
 import javax.ws.rs.client.Client;
-import javax.ws.rs.client.WebTarget;
-import javax.ws.rs.core.MediaType;
 
 import com.bangsapabbi.api.CoredataClient;
 import com.bangsapabbi.api.common.AbstractV1Service;
-import com.bangsapabbi.api.project.Project;
+import com.bangsapabbi.api.common.Insertable;
 
 public class FolderService extends AbstractV1Service<Folder> {
     public FolderService(final CoredataClient coredataClient,
@@ -25,21 +23,5 @@ public class FolderService extends AbstractV1Service<Folder> {
             return null;
         }
 
-    }
-
-    @Override
-    public String add(final Folder value) {
-        if (value.getParentProject() != null) {
-            value.setParent(getCoredataClient().getProjectService()
-                    .getWorkspaceUUID(value.getParentProject()));
-        }
-        return super.add(value);
-    }
-
-
-
-    @Override
-    protected String getParent(final Folder value) {
-        return value.getParent();
     }
 }

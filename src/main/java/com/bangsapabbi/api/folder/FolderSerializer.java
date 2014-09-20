@@ -22,7 +22,7 @@ public class FolderSerializer implements JsonSerializer<Folder> {
         returnValue.addProperty("filename", folder.getFilename());
         returnValue.addProperty("title", folder.getTitle());
         returnValue.addProperty("description", folder.getDescription());
-        returnValue.addProperty("type", folder.getType());
+        returnValue.addProperty("type", "Folder");
 
         return returnValue;
     }

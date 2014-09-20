@@ -1,5 +1,8 @@
 package com.bangsapabbi.api.user;
 
+import java.util.Set;
+import javax.validation.ConstraintViolation;
+
 import com.bangsapabbi.api.common.ApiDTO;
 import com.google.gson.annotations.SerializedName;
 
@@ -46,4 +49,5 @@ public class User implements ApiDTO {
     public void setUUID(final String uuid) {
         // The user does not have a uuid in the api so we do nothing here.
     }
+
 }

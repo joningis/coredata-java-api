@@ -13,7 +13,7 @@ public interface Service<T> extends Iterable<T> {
 
     List<T> getWithParameters(Map<String, String> parameters);
 
-    String add(T value);
+    <S extends Insertable<T>>String add(final S value);
 
     T get(String uuid);
 

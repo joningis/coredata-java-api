@@ -1,11 +1,15 @@
 package com.bangsapabbi.api.file;
 
+import java.util.Set;
+import javax.validation.ConstraintViolation;
+
 import com.bangsapabbi.api.common.ApiDTO;
+import com.bangsapabbi.api.common.Insertable;
 import com.bangsapabbi.api.project.Project;
 import com.bangsapabbi.api.space.Space;
 import com.google.gson.annotations.SerializedName;
 
-public class File implements ApiDTO {
+public class File implements Insertable<File> {
 
     private String filename;
 
@@ -61,7 +65,7 @@ public class File implements ApiDTO {
         this.project = project;
     }
 
-    public String getParent() {
+    public String getParentUUID() {
         return parent;
     }
 
@@ -105,6 +109,21 @@ public class File implements ApiDTO {
 
     public void setLocalPath(final String localPath) {
         this.localPath = localPath;
+    }
+
+    @Override
+    public boolean isValidForPost() {
+        return false;
+    }
+
+    @Override
+    public Set<ConstraintViolation<File>> getConstraintViolations() {
+        return null;
+    }
+
+    @Override
+    public String getViolationsAsString() {
+        return null;
     }
 
    /*

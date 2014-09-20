@@ -1,15 +1,24 @@
 package com.bangsapabbi.api.comment;
 
 import java.util.Date;
+import java.util.Set;
 
+import javax.validation.ConstraintViolation;
+import javax.validation.constraints.NotNull;
+
+import com.bangsapabbi.api.common.AbstractValidateableDTO;
 import com.bangsapabbi.api.common.ApiDTO;
+import com.bangsapabbi.api.common.Insertable;
+import com.bangsapabbi.api.common.validation.UUID;
+import com.bangsapabbi.api.common.validation.UUIDValidator;
 import com.google.gson.annotations.SerializedName;
 
-public class Comment implements ApiDTO {
+public class Comment extends AbstractValidateableDTO<Comment> implements Insertable<Comment> {
 
     private String author;
 
     @SerializedName("doc_id")
+    @UUID(message = "Invalid parent ID, must match " + UUIDValidator.UUID_REGEX)
     private String parentUUID;
 
     @SerializedName("id")
@@ -18,6 +27,7 @@ public class Comment implements ApiDTO {
     @SerializedName("resource_uri")
     private String resourceUri;
 
+    @NotNull
     private String text;
 
     private Date time;
@@ -74,4 +84,10 @@ public class Comment implements ApiDTO {
     public void setTime(final Date time) {
         this.time = time;
     }
+
+    @Override
+    public Set<ConstraintViolation<Comment>> getConstraintViolations() {
+        return this.getConstraintViolations(this);
+    }
+
 }

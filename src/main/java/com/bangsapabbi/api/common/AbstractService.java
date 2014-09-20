@@ -104,7 +104,7 @@ public abstract class AbstractService<T extends ApiDTO> implements Service<T> {
     }
 
     @Override
-    public String add(final T value) {
+    public <S extends Insertable<T>>String add(final S value) {
         final WebTarget target = client.target(baseUrl + "/api/v2/" + getTypeString() + "/");
 
         final Response response = target.request(MediaType.APPLICATION_JSON_TYPE)

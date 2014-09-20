@@ -4,9 +4,11 @@ import java.util.List;
 import javax.ws.rs.client.Client;
 
 import com.bangsapabbi.api.CoredataClient;
+import com.bangsapabbi.api.common.ApiDTO;
 import com.bangsapabbi.api.common.ContainerImpl;
 import com.bangsapabbi.api.common.AbstractService;
 import com.bangsapabbi.api.common.ApiIterator;
+import com.bangsapabbi.api.common.Insertable;
 import com.bangsapabbi.api.file.File;
 import com.bangsapabbi.api.project.Project;
 import com.bangsapabbi.api.task.Task;
@@ -40,10 +42,9 @@ public class UserService extends AbstractService<User> {
      * @return
      */
     @Override
-    public String add(final User value) {
+    public <S extends Insertable<User>> String add(final S value) {
         throw new UnsupportedOperationException();
     }
-
 
     /**
      * Override to increase readability.
