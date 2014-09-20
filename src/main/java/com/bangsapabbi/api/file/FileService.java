@@ -57,17 +57,20 @@ public class FileService extends AbstractService<File> {
                     + "/" + file.getUUID() + "/content");
             Response response = myResource.request(MediaType.APPLICATION_OCTET_STREAM).get();
 
-            InputStream inputStream = (InputStream) response.getEntity();
+            try (InputStream inputStream = (InputStream) response.getEntity()) {
 
-            OutputStream outputStream =
-                    new FileOutputStream(new java.io.File(file.getFilename()));
+                try (OutputStream outputStream =
+                             new FileOutputStream(new java.io.File(file.getFilename()))) {
 
-            int read;
-            byte[] bytes = new byte[1024];
+                    int read;
+                    byte[] bytes = new byte[1024];
 
-            while ((read = inputStream.read(bytes)) != -1) {
-                outputStream.write(bytes, 0, read);
+                    while ((read = inputStream.read(bytes)) != -1) {
+                        outputStream.write(bytes, 0, read);
+                    }
+                }
             }
+
         } catch (IOException e) {
             e.printStackTrace();
         }

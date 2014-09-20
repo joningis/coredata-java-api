@@ -13,7 +13,7 @@ import java.util.List;
 public class ContainerImpl<T> implements Container<T> {
     private Meta meta;
 
-    private ArrayList<T> objects;
+    private List<T> objects;
 
     @Override
     public Meta getMeta() {
