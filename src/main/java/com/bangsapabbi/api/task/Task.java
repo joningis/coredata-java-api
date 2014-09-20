@@ -91,7 +91,6 @@ public class Task implements ApiDTO {
         this.associatedUsers = Lists.newArrayList();
         this.contacts = Lists.newArrayList();
         this.connectedUsers = Lists.newArrayList();
-        this.connectedUsers = Lists.newArrayList();
     }
 
     public List<User> getAssociatedUsers() {
