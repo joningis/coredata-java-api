@@ -4,6 +4,9 @@
  */
 package com.bangsapabbi.api;
 
+import java.io.FileNotFoundException;
+import java.util.List;
+
 import com.bangsapabbi.api.comment.CommentService;
 import com.bangsapabbi.api.common.Service;
 import com.bangsapabbi.api.contact.Contact;
@@ -17,6 +20,7 @@ import com.bangsapabbi.api.task.TaskService;
 import com.bangsapabbi.api.user.User;
 import com.bangsapabbi.api.user.UserService;
 import com.bangsapabbi.api.valuelist.ValueListService;
+import com.google.common.collect.Lists;
 
 public class Test {
     public static void main(String[] args) {
@@ -52,6 +56,23 @@ public class Test {
             }
             System.out.println("----");
 
+        }
+
+        List<Project> projects = Lists.newArrayList(projectService.iterator());
+
+        if (!projects.isEmpty()) {
+            File file = new File();
+            file.setTitle("hoff.png");
+            file.setFilename("hoff.png");
+            file.setLocalPath("/tmp/hoffddd.png");
+            // File can not have parent as Project, it has to be the workspace of project.
+            file.setParent(projectService.getWorkspaceUUID(projects.get(0)));
+
+            try {
+                fileService.upload(file);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
         }
     }
 }

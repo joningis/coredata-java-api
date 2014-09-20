@@ -30,24 +30,13 @@ public class FolderService extends AbstractV1Service<Folder> {
     @Override
     public String add(final Folder value) {
         if (value.getParentProject() != null) {
-            value.setParent(findProjectWorkspace(value.getParentProject()));
+            value.setParent(getCoredataClient().getProjectService()
+                    .getWorkspaceUUID(value.getParentProject()));
         }
         return super.add(value);
     }
 
-    private String findProjectWorkspace(final Project project) {
-        if (project.getWorkspaceUUID() == null) {
-            final WebTarget myResource = client.target(baseUrl + "/api/document/"
-                    + project.getUUID() + "/children/");
-            final String response = myResource.request(MediaType.TEXT_PLAIN).get(String.class);
 
-            final String workspaceId = response.split("\"type\": \"Workspace\"")[1].split("}")[0]
-                    .split("\"id\": \"")[1].split("\"")[0];
-            project.setWorkspaceUUID(workspaceId);
-        }
-        return project.getWorkspaceUUID();
-
-    }
 
     @Override
     protected String getParent(final Folder value) {

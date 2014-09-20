@@ -1,5 +1,6 @@
 package com.bangsapabbi.api.file;
 
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -77,17 +78,22 @@ public class FileService extends AbstractService<File> {
 
     }
 
-    public void upload(final File file) {
+    /**
+     * First uploads the metadata and then the content of the file.
+     * @param file
+     * @throws java.io.FileNotFoundException if the local path of the input file does not exist.
+     */
+    public void upload(final File file) throws FileNotFoundException{
 
         this.add(file);
 
         final WebTarget myResource = client.target(baseUrl + "/api/v2/" + getTypeString()
                 + "/" + file.getUUID() + "/content");
 
-        final java.io.File uploadFile = new java.io.File("/tmp/hoff.png");
+        final java.io.File uploadFile = new java.io.File(file.getLocalPath());
 
-        final Response response = myResource.request(MediaType.APPLICATION_OCTET_STREAM)
-                .put(Entity.entity(uploadFile, MediaType.APPLICATION_OCTET_STREAM));
+            final Response response = myResource.request(MediaType.APPLICATION_OCTET_STREAM)
+                    .put(Entity.entity(uploadFile, MediaType.APPLICATION_OCTET_STREAM));
 
     }
 }

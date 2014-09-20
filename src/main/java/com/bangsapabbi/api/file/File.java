@@ -27,6 +27,7 @@ public class File implements ApiDTO {
 
     @SerializedName("mime_type")
     private String mimeType;
+    private String localPath;
 
     public String getFilename() {
         return filename;
@@ -96,6 +97,14 @@ public class File implements ApiDTO {
                 ", space=" + space +
                 ", mimeType='" + mimeType + '\'' +
                 '}';
+    }
+
+    public String getLocalPath() {
+        return localPath;
+    }
+
+    public void setLocalPath(final String localPath) {
+        this.localPath = localPath;
     }
 
    /*
