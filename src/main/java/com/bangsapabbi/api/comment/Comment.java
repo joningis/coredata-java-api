@@ -10,7 +10,7 @@ public class Comment implements ApiDTO {
     private String author;
 
     @SerializedName("doc_id")
-    private String docId;
+    private String parentUUID;
 
     @SerializedName("id")
     private String uuid;
@@ -25,5 +25,53 @@ public class Comment implements ApiDTO {
     @Override
     public void setUUID(final String uuid) {
         this.uuid = uuid;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(final String author) {
+        this.author = author;
+    }
+
+    public String getParentUUID() {
+        return parentUUID;
+    }
+
+    public void setParentUUID(final String parentUUID) {
+        this.parentUUID = parentUUID;
+    }
+
+    public String getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(final String uuid) {
+        this.uuid = uuid;
+    }
+
+    public String getResourceUri() {
+        return resourceUri;
+    }
+
+    public void setResourceUri(final String resourceUri) {
+        this.resourceUri = resourceUri;
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public void setText(final String text) {
+        this.text = text;
+    }
+
+    public Date getTime() {
+        return time;
+    }
+
+    public void setTime(final Date time) {
+        this.time = time;
     }
 }

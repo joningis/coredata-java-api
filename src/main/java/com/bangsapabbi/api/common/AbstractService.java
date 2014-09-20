@@ -13,6 +13,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import com.bangsapabbi.api.CoredataClient;
+import com.bangsapabbi.api.comment.CommentSerializer;
 import com.bangsapabbi.api.file.File;
 import com.bangsapabbi.api.file.FileSerializer;
 import com.bangsapabbi.api.folder.Folder;
@@ -21,6 +22,7 @@ import com.bangsapabbi.api.task.Task;
 import com.bangsapabbi.api.task.TaskSerializer;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import sun.org.mozilla.javascript.internal.ast.Comment;
 
 /**
  * Abstract class that handles most of web service calls.
@@ -58,6 +60,7 @@ public abstract class AbstractService<T extends ApiDTO> implements Service<T> {
                     .registerTypeAdapter(Task.class, new TaskSerializer())
                     .registerTypeAdapter(File.class, new FileSerializer())
                     .registerTypeAdapter(Folder.class, new FolderSerializer())
+                    .registerTypeAdapter(Comment.class, new CommentSerializer())
                     .registerTypeAdapter(Date.class, new DateDeserializer()).create();
         }
         return this.gson;

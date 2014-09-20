@@ -11,7 +11,7 @@ public class CommentService extends AbstractService<Comment> {
     public CommentService(final CoredataClient coredataClient,
                           final Client client,
                           final String baseUrl) {
-        super(coredataClient, client, baseUrl, "comment", Comment.class,
+        super(coredataClient, client, baseUrl, "comments", Comment.class,
                 new TypeToken<ContainerImpl<Comment>>() {
                 }.getType());
     }

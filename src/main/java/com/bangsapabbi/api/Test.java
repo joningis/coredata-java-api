@@ -7,6 +7,7 @@ package com.bangsapabbi.api;
 import java.io.FileNotFoundException;
 import java.util.List;
 
+import com.bangsapabbi.api.comment.Comment;
 import com.bangsapabbi.api.comment.CommentService;
 import com.bangsapabbi.api.common.Service;
 import com.bangsapabbi.api.contact.Contact;
@@ -60,11 +61,12 @@ public class Test {
 
         List<Project> projects = Lists.newArrayList(projectService.iterator());
 
+        File file = new File();
         if (!projects.isEmpty()) {
-            File file = new File();
+
             file.setTitle("hoff.png");
             file.setFilename("hoff.png");
-            file.setLocalPath("/tmp/hoffddd.png");
+            file.setLocalPath("/tmp/hoff.png");
             // File can not have parent as Project, it has to be the workspace of project.
             file.setParent(projectService.getWorkspaceUUID(projects.get(0)));
 
@@ -73,6 +75,14 @@ public class Test {
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
+        }
+
+        if(file.getUUID() != null) {
+            Comment comment = new Comment();
+
+            comment.setText("Test comment");
+            comment.setParentUUID(file.getUUID());
+            commentService.add(comment);
         }
     }
 }
