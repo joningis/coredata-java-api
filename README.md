@@ -1,6 +1,8 @@
 coredata-java-api
 =================
 
+![Build status](https://travis-ci.org/joningis/coredata-java-api.svg?branch=master)
+
 Java api client for Coredata
 
 Supported Operations and examples
