@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Set;
 import javax.validation.ConstraintViolation;
+import javax.validation.constraints.NotNull;
 
 import com.bangsapabbi.api.common.AbstractInsertableDTO;
 import com.bangsapabbi.api.project.Project;
@@ -48,6 +49,7 @@ public class Task extends AbstractInsertableDTO<Task> {
 
     private Project project;
 
+    @NotNull
     private String title;
 
     /**

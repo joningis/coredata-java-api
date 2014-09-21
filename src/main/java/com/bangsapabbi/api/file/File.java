@@ -2,6 +2,7 @@ package com.bangsapabbi.api.file;
 
 import java.util.Set;
 import javax.validation.ConstraintViolation;
+import javax.validation.constraints.NotNull;
 
 import com.bangsapabbi.api.common.ApiDTO;
 import com.bangsapabbi.api.common.Insertable;
@@ -11,8 +12,10 @@ import com.google.gson.annotations.SerializedName;
 
 public class File implements Insertable<File> {
 
+    @NotNull
     private String filename;
 
+    @NotNull
     private String title;
 
     @SerializedName("id")

@@ -26,8 +26,8 @@ import com.google.common.collect.Lists;
 
 public class Test {
     public static void main(String[] args) {
-        String username = "";
-        String password = "";
+        String username = "Administrator";
+        String password = "Administrator";
         final CoredataClient client = ClientBuilder.newClient(
                 "http://localhost:8100", username, password);
 
@@ -59,6 +59,10 @@ public class Test {
             System.out.println("----");
 
         }
+
+        Contact contact = new Contact();
+        contact.setName("Jón Jónsson");
+        contactService.add(contact);
 
         List<Project> projects = Lists.newArrayList(projectService.iterator());
 

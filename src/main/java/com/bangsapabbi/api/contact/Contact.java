@@ -6,6 +6,7 @@ import java.util.Set;
 
 import javax.validation.ConstraintViolation;
 
+import com.bangsapabbi.api.common.AbstractInsertableDTO;
 import com.bangsapabbi.api.common.ApiDTO;
 import com.bangsapabbi.api.valuelist.lists.ContactStatus;
 import com.google.gson.annotations.SerializedName;
@@ -13,13 +14,12 @@ import com.google.gson.annotations.SerializedName;
 /**
  * DTO for contact.
  */
-public class Contact implements ApiDTO {
+public class Contact extends AbstractInsertableDTO<Contact> {
 
-    @SerializedName("id")
-    private String uuid;
+
     private String identifier;
     private String title;
-    private String description;
+
     private List<Phone> phones;
     private List<Email> emails;
 
@@ -30,33 +30,15 @@ public class Contact implements ApiDTO {
     @SerializedName("contact_addresses")
     private List<Address> contactAddresses;
 
-    @SerializedName("resource_uri")
-    private String resourceUri;
-
-    @SerializedName("created_by")
-    private String createdBy;
-
-    @SerializedName("modified_by")
-    private String modifiedBy;
-
-    private Date created;
-
-    private Date modified;
 
     private List<String> tags;
 
     private ContactStatus status;
 
-    private String type;
-
-    private String version;
-
-    public String getUUID() {
-        return this.uuid;
-    }
-
-    public void setUUID(final String uuid) {
-        this.uuid = uuid;
+    public Contact() {
+        // set this id to pass validation. Contacts are the only one not
+        // to have parent.
+        this.setParentUUID("5cc68cd4-8ce6-11e3-a69a-6003088b5c52");
     }
 
     public String getName() {
@@ -71,39 +53,36 @@ public class Contact implements ApiDTO {
         return emails;
     }
 
-    public void setEmails(final List<Email> emails) {
-        this.emails = emails;
-    }
-
     public List<Phone> getPhones() {
         return phones;
-    }
-
-    public void setPhones(final List<Phone> phones) {
-        this.phones = phones;
     }
 
     @Override
     public String toString() {
         return "Contact{" +
-                "uuid='" + uuid + '\'' +
+                "uuid='" + getUUID() + '\'' +
                 ", identifier='" + identifier + '\'' +
                 ", title='" + title + '\'' +
-                ", description='" + description + '\'' +
+                ", description='" + getDescription() + '\'' +
                 ", phones=" + phones +
                 ", emails=" + emails +
                 ", urls=" + urls +
                 ", organization=" + organization +
                 ", contactAddresses=" + contactAddresses +
-                ", resourceUri='" + resourceUri + '\'' +
-                ", createdBy='" + createdBy + '\'' +
-                ", modifiedBy='" + modifiedBy + '\'' +
-                ", created=" + created +
-                ", modified=" + modified +
+                ", resourceUri='" + getResourceUri() + '\'' +
+                ", createdBy='" + getCreatedBy() + '\'' +
+                ", modifiedBy='" + getModifiedBy() + '\'' +
+                ", created=" + getCreated() +
+                ", modified=" + getModified() +
                 ", tags=" + tags +
                 ", status=" + status +
-                ", type='" + type + '\'' +
-                ", version='" + version + '\'' +
+                ", type='" + getType() + '\'' +
+                ", version='" + getVersion() + '\'' +
                 '}';
+    }
+
+    @Override
+    public Set<ConstraintViolation<Contact>> getConstraintViolations() {
+        return null;
     }
 }

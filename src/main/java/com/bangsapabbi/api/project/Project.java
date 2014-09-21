@@ -40,7 +40,6 @@ public class Project extends AbstractInsertableDTO<Project> {
      */
     private List<String> contacts;
 
-    private String description;
 
     @SerializedName("due_date")
     private Date dueDate;
@@ -88,7 +87,7 @@ public class Project extends AbstractInsertableDTO<Project> {
                 ", connectedUsers=" + connectedUsers +
                 ", associatedUsers=" + associatedUsers +
                 ", contacts=" + contacts +
-                ", description='" + description + '\'' +
+                ", description='" + getDescription() + '\'' +
                 ", createdBy='" + getCreatedBy() + '\'' +
                 ", modifiedBy='" + getModifiedBy() + '\'' +
                 ", created=" + getCreated() +
