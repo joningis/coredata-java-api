@@ -175,6 +175,11 @@ public class Project extends AbstractInsertableDTO<Project> {
             return this;
         }
 
+        public Builder tag(String tag) {
+            project.addTag(tag);
+            return this;
+        }
+
         public Project build() {
             return project;
         }

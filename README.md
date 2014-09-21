@@ -43,12 +43,13 @@ To work with projects get a instance of a project service.
  ```
 
  To delete a project
- 
+
 ```java
  projectService.delete("c0734736-3f79-11e4-8ab3-6003088b5c52");
  ```
 
- To add a project. Here we use spaceservice to get all spaces in the system and insert the project in the first space found.
+ To add a project. 
+ Here we use spaceservice to get all spaces in the system and insert the project in the first space found.
  Also shown here is the validation framework in action. Project need to have title and parent uuid to be added. The validation does not check if the parent uuid is id of a space, only if the format is valid.
 
 ```java
@@ -65,6 +66,18 @@ To work with projects get a instance of a project service.
 			System.out.println(project.getViolationsAsString());
 		}
 	}
+ ```
+
+ Projects can also be created using project builder. Note that tags can be called multiple times.
+
+```java
+Project projectWithBuilder = Project.Builder()
+	.title("Test builder")
+	.parentUUID(spaces.get(0).getUUID())
+	.status(ProjectStatus.CLOSED)
+	.tag("Party")
+	.tag("Time")
+	.build();
  ```
 
  To iterate list of all projects
