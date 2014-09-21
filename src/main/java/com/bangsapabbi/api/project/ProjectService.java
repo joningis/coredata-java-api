@@ -10,6 +10,7 @@ import com.bangsapabbi.api.common.AbstractService;
 import com.bangsapabbi.api.common.ApiIterator;
 import com.bangsapabbi.api.common.ContainerImpl;
 import com.bangsapabbi.api.file.File;
+import com.bangsapabbi.api.task.Task;
 import com.google.common.collect.Lists;
 import com.google.gson.reflect.TypeToken;
 
@@ -27,16 +28,13 @@ public class ProjectService extends AbstractService<Project> {
     }
 
     public List<? extends File> getFilesForProject(final Project project) {
-        final List<File> returnValue = Lists.newArrayList();
+        return Lists.newArrayList(new ApiIterator<>(getCoredataClient().getFileService(),
+                "/" + project.getUUID() + "/files", "projects"));
+    }
 
-        final ApiIterator<File> projectFileIterator
-                = new ApiIterator<>(getCoredataClient().getFileService(),
-                "/" + project.getUUID() + "/files", "projects");
-        while (projectFileIterator.hasNext()) {
-            returnValue.add(projectFileIterator.next());
-        }
-        return returnValue;
-
+    public List<? extends Task> getTaksForProject(final Project project) {
+        return Lists.newArrayList(new ApiIterator<>(getCoredataClient().getTaskService(),
+        "/" + project.getUUID() + "/tasks", "projects"));
     }
 
     public String getWorkspaceUUID(final Project project) {

@@ -31,8 +31,8 @@ import com.google.common.collect.Lists;
 
 public class Test {
     public static void main(String[] args) {
-        String username = "Administrator";
-        String password = "Administrator";
+        String username = "";
+        String password = "";
         final CoredataClient client = ClientBuilder.newClient(
                 "http://localhost:8100", username, password);
 
@@ -102,6 +102,18 @@ public class Test {
         }
 */
 
+
+        for (Project project : projectService) {
+            System.out.println(project);
+
+            for (File file : projectService.getFilesForProject(project)) {
+                System.out.println(file);
+            }
+            for (Task task : projectService.getTaksForProject(project)) {
+                System.out.println(task);
+            }
+        }
+/*
         Search search = SearchBuilder.newSearch()
                 .titleStartsWith("Test")
                 .createdGreaterThan(new Date(114, 1, 1))
@@ -159,5 +171,6 @@ public class Test {
                 commentService.add(comment);
             }
         }
+        */
     }
 }
