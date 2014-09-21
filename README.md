@@ -32,24 +32,26 @@ final CoredataClient client = ClientBuilder.newClient(address, username, passwor
 
 To work with projects get a instance of a project service.
 
-´´´java
+```java
  final ProjectService projectService = client.getProjectService();
  ```
 
  To get a single project
-´´´java
+
+```java
  Project project = projectService.get("c0734736-3f79-11e4-8ab3-6003088b5c52");
  ```
 
  To delete a project
- ´´´java
+ 
+```java
  projectService.delete("c0734736-3f79-11e4-8ab3-6003088b5c52");
  ```
 
  To add a project. Here we use spaceservice to get all spaces in the system and insert the project in the first space found.
  Also shown here is the validation framework in action. Project need to have title and parent uuid to be added. The validation does not check if the parent uuid is id of a space, only if the format is valid.
 
-  ´´´java
+```java
  List<Space> spaces = Lists.newArrayList(spaceService.iterator());
         
 	if(!spaces.isEmpty()) {
@@ -67,7 +69,7 @@ To work with projects get a instance of a project service.
 
  To iterate list of all projects
 
-´´´java
+```java
 for (Project project : projectService) {
     System.out.println(project);
 }
@@ -75,7 +77,7 @@ for (Project project : projectService) {
 
 To iterate over all files in a project
 
- ´´´java
+```java
 for (File file : projectService.getFilesForProject(project)) {
     System.out.println(file);
 }
@@ -83,7 +85,7 @@ for (File file : projectService.getFilesForProject(project)) {
 
 To search for projects
 
- ´´´java
+```java
  Search search = SearchBuilder.newSearch()
                 .titleStartsWith("Test")
                 .createdGreaterThan(new Date(114, 1, 1))
