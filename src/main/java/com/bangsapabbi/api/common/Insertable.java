@@ -11,4 +11,6 @@ import com.bangsapabbi.api.common.validation.Validateable;
  */
 public interface Insertable<T> extends Validateable<T>, ApiDTO {
     String getParentUUID();
+
+    String getUUID();
 }

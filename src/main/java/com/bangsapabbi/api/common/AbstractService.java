@@ -19,6 +19,8 @@ import com.bangsapabbi.api.file.File;
 import com.bangsapabbi.api.file.FileSerializer;
 import com.bangsapabbi.api.folder.Folder;
 import com.bangsapabbi.api.folder.FolderSerializer;
+import com.bangsapabbi.api.project.Project;
+import com.bangsapabbi.api.project.ProjectSerializer;
 import com.bangsapabbi.api.task.Task;
 import com.bangsapabbi.api.task.TaskSerializer;
 import com.google.gson.Gson;
@@ -61,6 +63,7 @@ public abstract class AbstractService<T extends ApiDTO> implements Service<T> {
                     .registerTypeAdapter(File.class, new FileSerializer())
                     .registerTypeAdapter(Folder.class, new FolderSerializer())
                     .registerTypeAdapter(Comment.class, new CommentSerializer())
+                    .registerTypeAdapter(Project.class, new ProjectSerializer())
                     .registerTypeAdapter(Date.class, new DateDeserializer()).create();
         }
         return this.gson;

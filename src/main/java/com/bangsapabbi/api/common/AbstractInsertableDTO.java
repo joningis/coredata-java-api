@@ -1,16 +1,9 @@
 package com.bangsapabbi.api.common;
 
 import java.util.Date;
-import java.util.Iterator;
-import java.util.Set;
-import javax.validation.ConstraintViolation;
-import javax.validation.Validation;
-import javax.validation.Validator;
-import javax.validation.ValidatorFactory;
 
 import com.bangsapabbi.api.common.validation.UUID;
 import com.bangsapabbi.api.common.validation.UUIDValidator;
-import com.bangsapabbi.api.common.validation.Validateable;
 import com.google.gson.annotations.SerializedName;
 
 public abstract class AbstractInsertableDTO<T> extends AbstractValidateableDTO<T> implements Insertable<T> {

@@ -5,10 +5,13 @@
 package com.bangsapabbi.api;
 
 import java.io.FileNotFoundException;
+import java.util.Date;
 import java.util.List;
 
 import com.bangsapabbi.api.comment.Comment;
 import com.bangsapabbi.api.comment.CommentService;
+import com.bangsapabbi.api.common.Search;
+import com.bangsapabbi.api.common.SearchBuilder;
 import com.bangsapabbi.api.common.Service;
 import com.bangsapabbi.api.contact.Contact;
 import com.bangsapabbi.api.file.File;
@@ -17,6 +20,8 @@ import com.bangsapabbi.api.folder.Folder;
 import com.bangsapabbi.api.folder.FolderService;
 import com.bangsapabbi.api.project.Project;
 import com.bangsapabbi.api.project.ProjectService;
+import com.bangsapabbi.api.space.Space;
+import com.bangsapabbi.api.space.SpaceService;
 import com.bangsapabbi.api.task.Task;
 import com.bangsapabbi.api.task.TaskService;
 import com.bangsapabbi.api.user.User;
@@ -40,7 +45,12 @@ public class Test {
         final FolderService folderService = client.getFolderService();
         final Service<Contact> contactService = client.getContactService();
         final CommentService commentService = client.getCommentService();
+        final SpaceService spaceService = client.getSpaceService();
 
+
+        for (Comment comment : commentService) {
+
+        }
         for (User user : userService) {
             System.out.println(user);
 
@@ -64,7 +74,50 @@ public class Test {
         contact.setName("Jón Jónsson");
         contactService.add(contact);
 
-        List<Project> projects = Lists.newArrayList(projectService.iterator());
+
+       // Project project = projectService.get("c0734736-3f79-11e4-8ab3-6003088b5c52");
+      //  projectService.delete("c0734736-3f79-11e4-8ab3-6003088b5c52");
+
+      /*  List<Space> spaces = Lists.newArrayList(spaceService.iterator());
+
+        if(!spaces.isEmpty()) {
+            Project project = new Project();
+            project.setTitle("Test project");
+            project.setParentUUID(spaces.get(0).getUUID());
+
+            if (project.isValidForPost()) {
+                projectService.add(project);
+            } else {
+                System.out.println(project.getViolationsAsString());
+            }
+        }
+        System.out.println();
+        /*
+        for (Project project : projectService) {
+            System.out.println(project);
+
+            for (File file : projectService.getFilesForProject(project)) {
+                System.out.println(file);
+            }
+        }
+*/
+
+        Search search = SearchBuilder.newSearch()
+                .titleStartsWith("Test")
+                .createdGreaterThan(new Date(114, 1, 1))
+                .limit(10)
+                .create();
+
+       List<Project> projects = projectService.search(search);
+
+            for (Project project : projects) {
+
+                System.out.println(project);
+            }
+
+      //  List<Project> projects = Lists.newArrayList(projectService.iterator());
+
+
 
         if (!projects.isEmpty()) {
 

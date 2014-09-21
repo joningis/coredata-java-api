@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Set;
 
 import javax.validation.ConstraintViolation;
+import javax.validation.constraints.NotNull;
 
 import com.bangsapabbi.api.common.AbstractInsertableDTO;
 import com.bangsapabbi.api.common.ApiDTO;
@@ -22,6 +23,8 @@ import com.google.gson.annotations.SerializedName;
 public class Project extends AbstractInsertableDTO<Project> {
 
     private ProjectStatus status;
+
+    @NotNull
     private String title;
 
     private String identifier;

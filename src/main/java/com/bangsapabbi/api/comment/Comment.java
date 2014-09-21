@@ -37,6 +37,11 @@ public class Comment extends AbstractValidateableDTO<Comment> implements Inserta
         this.uuid = uuid;
     }
 
+    @Override
+    public String getUUID() {
+        return this.uuid;
+    }
+
     public String getAuthor() {
         return author;
     }
@@ -48,6 +53,8 @@ public class Comment extends AbstractValidateableDTO<Comment> implements Inserta
     public String getParentUUID() {
         return parentUUID;
     }
+
+
 
     public void setParentUUID(final String parentUUID) {
         this.parentUUID = parentUUID;
