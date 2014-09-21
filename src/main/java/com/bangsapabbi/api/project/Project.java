@@ -3,15 +3,14 @@ package com.bangsapabbi.api.project;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
-
 import javax.validation.ConstraintViolation;
 import javax.validation.constraints.NotNull;
 
 import com.bangsapabbi.api.common.AbstractInsertableDTO;
-import com.bangsapabbi.api.common.ApiDTO;
 import com.bangsapabbi.api.space.Space;
 import com.bangsapabbi.api.user.User;
 import com.bangsapabbi.api.valuelist.lists.ProjectStatus;
+import com.google.common.collect.Lists;
 import com.google.gson.annotations.SerializedName;
 
 /**
@@ -59,6 +58,26 @@ public class Project extends AbstractInsertableDTO<Project> {
 
     private String workspaceUUID;
 
+    public Project() {
+        this.tags = Lists.newArrayList();
+    }
+
+    public ProjectStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(final ProjectStatus status) {
+        this.status = status;
+    }
+
+    public Date getDueDate() {
+        return dueDate;
+    }
+
+    public void setDueDate(final Date dueDate) {
+        this.dueDate = dueDate;
+    }
+
     public String getTitle() {
         return title;
     }
@@ -73,6 +92,14 @@ public class Project extends AbstractInsertableDTO<Project> {
 
     public String getWorkspaceUUID() {
         return workspaceUUID;
+    }
+
+    public List<String> getTags() {
+        return tags;
+    }
+
+    public void addTag(final String tag) {
+        this.tags.add(tag);
     }
 
     @Override
@@ -104,5 +131,52 @@ public class Project extends AbstractInsertableDTO<Project> {
                 ", type='" + getType() + '\'' +
                 ", version='" + getVersion() + '\'' +
                 '}';
+    }
+
+    public static Builder Builder() {
+        return new Builder();
+    }
+
+
+    public static class Builder {
+        private final Project project;
+
+        private Builder() {
+            project = new Project();
+        }
+
+        public Builder status(ProjectStatus status) {
+            project.setStatus(status);
+            return this;
+        }
+
+        public Builder title(String title) {
+            project.setTitle(title);
+            return this;
+        }
+
+        public Builder dueDate(Date dueDate) {
+            project.setDueDate(dueDate);
+            return this;
+        }
+
+        public Builder workspaceUUID(String workspaceUUID) {
+            project.setWorkspaceUUID(workspaceUUID);
+            return this;
+        }
+
+        public Builder parentUUID(String parentUUID) {
+            project.setParentUUID(parentUUID);
+            return this;
+        }
+
+        public Builder description(String description) {
+            project.setDescription(description);
+            return this;
+        }
+
+        public Project build() {
+            return project;
+        }
     }
 }

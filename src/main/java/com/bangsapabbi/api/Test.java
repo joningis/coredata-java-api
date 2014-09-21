@@ -4,19 +4,15 @@
  */
 package com.bangsapabbi.api;
 
-import java.io.FileNotFoundException;
 import java.util.Date;
 import java.util.List;
 
 import com.bangsapabbi.api.comment.Comment;
 import com.bangsapabbi.api.comment.CommentService;
-import com.bangsapabbi.api.common.Search;
-import com.bangsapabbi.api.common.SearchBuilder;
 import com.bangsapabbi.api.common.Service;
 import com.bangsapabbi.api.contact.Contact;
 import com.bangsapabbi.api.file.File;
 import com.bangsapabbi.api.file.FileService;
-import com.bangsapabbi.api.folder.Folder;
 import com.bangsapabbi.api.folder.FolderService;
 import com.bangsapabbi.api.project.Project;
 import com.bangsapabbi.api.project.ProjectService;
@@ -27,6 +23,7 @@ import com.bangsapabbi.api.task.TaskService;
 import com.bangsapabbi.api.user.User;
 import com.bangsapabbi.api.user.UserService;
 import com.bangsapabbi.api.valuelist.ValueListService;
+import com.bangsapabbi.api.valuelist.lists.ProjectStatus;
 import com.google.common.collect.Lists;
 
 public class Test {
@@ -69,29 +66,44 @@ public class Test {
             System.out.println("----");
 
         }
-
+/*
         Contact contact = new Contact();
         contact.setName("Jón Jónsson");
         contactService.add(contact);
+*/
 
+        // Project project = projectService.get("c0734736-3f79-11e4-8ab3-6003088b5c52");
+        //  projectService.delete("c0734736-3f79-11e4-8ab3-6003088b5c52");
 
-       // Project project = projectService.get("c0734736-3f79-11e4-8ab3-6003088b5c52");
-      //  projectService.delete("c0734736-3f79-11e4-8ab3-6003088b5c52");
+        List<Space> spaces = Lists.newArrayList(spaceService.iterator());
 
-      /*  List<Space> spaces = Lists.newArrayList(spaceService.iterator());
-
-        if(!spaces.isEmpty()) {
+        if (!spaces.isEmpty()) {
             Project project = new Project();
             project.setTitle("Test project");
             project.setParentUUID(spaces.get(0).getUUID());
+            project.setStatus(ProjectStatus.ON_HOLD);
+            project.setDueDate(new Date(2014 - 1900, 4, 20));
+            project.setDescription("Project description");
+            project.addTag("Party");
+            project.addTag("Time");
 
             if (project.isValidForPost()) {
                 projectService.add(project);
             } else {
                 System.out.println(project.getViolationsAsString());
             }
+
+
+            Project projectWithBuilder = Project.Builder()
+                    .title("Test builder")
+                    .parentUUID(spaces.get(0).getUUID())
+                    .status(ProjectStatus.CLOSED)
+                    .build();
+            projectService.add(projectWithBuilder);
         }
         System.out.println();
+
+
         /*
         for (Project project : projectService) {
             System.out.println(project);
