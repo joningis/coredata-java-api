@@ -99,13 +99,43 @@ for (File file : projectService.getFilesForProject(project)) {
 To search for projects
 
 ```java
- Search search = SearchBuilder.newSearch()
-                .titleStartsWith("Test")
-                .createdGreaterThan(new Date(114, 1, 1))
-                .limit(10)
-                .create();
+Search search = SearchBuilder.newSearch()
+	.titleStartsWith("Test")
+	.createdGreaterThan(new Date(114, 1, 1))
+	.limit(10)
+	.create();
 
-       List<Project> projects = projectService.search(search);
+List<Project> projects = projectService.search(search);
+ ```
+
+### Users
+
+The API only has GET for users so adding a user or deleting one is not supported.
+
+To work with uers get a instance of a user service.
+
+```java
+ final UserService userService = client.getUserService();
+ ```
+
+The following is an example of iteraterating all users and printing files, projects and task for each
+
+```java
+for (User user : userService) {
+	System.out.println(user);
+
+	for (File file : userService.getFilesForUser(user)) {
+		System.out.println(file);
+	}
+	
+	for (Task task : userService.getTasksForUser(user)) {
+		System.out.println(task);
+	}
+    
+	for (Project project : userService.getProjectsForUser(user)) {
+    	System.out.println(project);
+	}
+}
  ```
 
 

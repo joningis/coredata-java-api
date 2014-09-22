@@ -1,11 +1,11 @@
 package com.bangsapabbi.api.user;
 
-import java.util.Set;
-import javax.validation.ConstraintViolation;
-
 import com.bangsapabbi.api.common.ApiDTO;
 import com.google.gson.annotations.SerializedName;
 
+/**
+ * Users can only be read, that is the API does not allow add or delete of users.
+ */
 public class User implements ApiDTO {
 
     @SerializedName("first_name")
