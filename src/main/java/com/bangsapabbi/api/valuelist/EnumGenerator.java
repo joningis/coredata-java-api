@@ -37,6 +37,7 @@ public class EnumGenerator {
                             .replaceAll("\\.", "_")
                             .replaceAll("-", "_")
                             .replaceAll("'", "_")
+                            .replaceAll("/", "_")
             );
             if (iterator.hasNext()) {
                 builder.append(',').append('\n').append('\n');

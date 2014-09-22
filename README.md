@@ -51,6 +51,7 @@ To work with projects get a instance of a project service.
  To add a project. 
  Here we use spaceservice to get all spaces in the system and insert the project in the first space found.
  Also shown here is the validation framework in action. Project need to have title and parent uuid to be added. The validation does not check if the parent uuid is id of a space, only if the format is valid.
+ When project has been added the UUID of the project in coredata is automatically added to the project.
 
 ```java
  List<Space> spaces = Lists.newArrayList(spaceService.iterator());

@@ -19,8 +19,10 @@ public class ProjectSerializer implements JsonSerializer<Project> {
         returnValue.addProperty("type", "Project");
         returnValue.addProperty("space", project.getParentUUID());
         returnValue.add("status", context.serialize(project.getStatus()));
-        returnValue.addProperty("due_date",
-                DateUtil.getFromDate(project.getDueDate(), "yyyy-MM-dd"));
+        if(project.getDueDate() != null) {
+            returnValue.addProperty("due_date",
+                    DateUtil.getFromDate(project.getDueDate(), "yyyy-MM-dd"));
+        }
         returnValue.addProperty("description", project.getDescription());
         returnValue.add("tags", context.serialize(project.getTags()));
 
