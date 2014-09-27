@@ -37,8 +37,9 @@ public class CoredataClient {
         this.baseUrl = baseUrl;
         this.client = javax.ws.rs.client.ClientBuilder.newClient();
 
-        final HttpAuthenticationFeature feature = HttpAuthenticationFeature.basicBuilder()
-                .nonPreemptive().credentials(username, password).build();
+        final HttpAuthenticationFeature feature =
+                HttpAuthenticationFeature.basic(username, password);
+
         client.register(feature);
     }
 
