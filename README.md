@@ -76,8 +76,7 @@ Project projectWithBuilder = Project.Builder()
 	.title("Test builder")
 	.parentUUID(spaces.get(0).getUUID())
 	.status(ProjectStatus.CLOSED)
-	.tag("Party")
-	.tag("Time")
+	.tags("Party", "Time")
 	.build();
  ```
 
