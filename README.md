@@ -2,6 +2,7 @@ coredata-java-api
 =================
 
 ![Build status](https://travis-ci.org/joningis/coredata-java-api.svg?branch=master)
+[![Coverage Status](https://coveralls.io/repos/joningis/coredata-java-api/badge.png)](https://coveralls.io/r/joningis/coredata-java-api)
 
 ## Overview
 
