@@ -1,5 +1,6 @@
 package com.bangsapabbi.api.project;
 
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -59,6 +60,8 @@ public class Project extends AbstractInsertableDTO<Project> {
     private String workspaceUUID;
 
     public Project() {
+        this.connectedUsers = Lists.newArrayList();
+        this.contacts = Lists.newArrayList();
         this.tags = Lists.newArrayList();
     }
 
@@ -100,6 +103,52 @@ public class Project extends AbstractInsertableDTO<Project> {
 
     public void addTag(final String tag) {
         this.tags.add(tag);
+    }
+
+    public void addAllTag(final Collection<String> tags) {
+
+        this.tags.addAll(tags);
+    }
+
+    public List<String> getConnectedUsers() {
+        return connectedUsers;
+    }
+
+    public void addConnectedUser(final String connectedUser) {
+        this.connectedUsers.add(connectedUser);
+    }
+
+    private void addAllConnectedUsers(final Collection<String> connectedUsers) {
+        this.connectedUsers.addAll(connectedUsers);
+    }
+
+    public List<User> getAssociatedUsers() {
+        return associatedUsers;
+    }
+
+    public void addAssociatedUser(final User associatedUser) {
+        this.associatedUsers.add(associatedUser);
+    }
+
+    public List<String> getContacts() {
+        return contacts;
+    }
+
+    public void addContact(final String contact) {
+        this.contacts.add(contact);
+    }
+
+
+    private void addAllContacts(final Collection<String> value) {
+        this.contacts.addAll(value);
+    }
+
+    public List<User> getResponsibleUsers() {
+        return responsibleUsers;
+    }
+
+    public void addResponsibleUser(final User responsibleUser) {
+        this.responsibleUsers.add(responsibleUser);
     }
 
     @Override
@@ -175,8 +224,18 @@ public class Project extends AbstractInsertableDTO<Project> {
             return this;
         }
 
-        public Builder tag(String tag) {
-            project.addTag(tag);
+        public Builder tags(String... tag) {
+            project.addAllTag(Lists.newArrayList(tag));
+            return this;
+        }
+
+        public Builder connectedUsers(final String... value) {
+            project.addAllConnectedUsers(Lists.newArrayList(value));
+            return this;
+        }
+
+        public Builder contacts(final String... value) {
+            project.addAllContacts(Lists.newArrayList(value));
             return this;
         }
 
