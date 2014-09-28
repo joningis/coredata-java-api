@@ -20,6 +20,16 @@ configurations {
     }
 }
 
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath 'org.kt3k.gradle.plugin:coveralls-gradle-plugin:2.0.0'
+    }
+}
+
 dependencies {
     compile group: 'org.glassfish.jersey.core', name: 'jersey-client', version: '2.+'
     compile group: 'com.google.code.gson', name: 'gson', version: '2.+'
@@ -36,8 +46,6 @@ dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.+'
     testCompile group: 'org.hamcrest', name: 'hamcrest-all', version: '1.+'
     testCompile group: 'org.mockito', name: 'mockito-all', version: '1.+'
-
-    classpath 'org.kt3k.gradle.plugin:coveralls-gradle-plugin:2.0.0'
 
 }
 
