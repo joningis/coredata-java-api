@@ -13,7 +13,6 @@ CoreData is the first solution in Iceland to use Mobile ID authentication for si
 
 [http://www.azazo.com/coredata/](http://www.azazo.com/coredata/)
 
-
 ## Usage
 
 ### Init
