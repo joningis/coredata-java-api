@@ -4,7 +4,7 @@ apply plugin: 'findbugs'
 apply plugin: 'build-dashboard'
 apply plugin: 'jacoco'
 apply plugin: 'checkstyle'
-apply plugin: 'pmd'
+//apply plugin: 'pmd'
 apply plugin: 'com.github.kt3k.coveralls'
 
 sourceCompatibility = 1.7
@@ -70,10 +70,21 @@ tasks.withType(FindBugs) {
     reportLevel = "low"
 }
 
+/*
 pmd {
+    toolVersion = "5.1.2"
     ignoreFailures = true
     ruleSetFiles = files("${rootDir}/config/pmd/pmd-rules.xml")
+
+    //  println "PMD version: ${toolVersion}"
 }
+pmdMain {
+    reports {
+        xml.enabled true
+        html.enabled true
+    }
+}
+*/
 
 checkstyle {
     ignoreFailures = true
