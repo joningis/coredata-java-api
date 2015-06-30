@@ -51,4 +51,16 @@ public class ProjectService extends AbstractService<Project> {
             return project.getWorkspaceUUID();
 
         }
+
+    public String getWorkspaceUUID(final String uuid) {
+            final WebTarget myResource = client.target(baseUrl + "/api/document/"
+                    + uuid + "/children/");
+            final String response = myResource.request(MediaType.TEXT_PLAIN).get(String.class);
+
+            final String workspaceId = response.split("\"type\": \"Workspace\"")[1].split("}")[0]
+                    .split("\"id\": \"")[1].split("\"")[0];
+
+        return workspaceId;
+
+    }
 }

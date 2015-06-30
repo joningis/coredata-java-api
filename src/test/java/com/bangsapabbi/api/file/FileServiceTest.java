@@ -21,6 +21,7 @@ import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.Response;
 
 import com.bangsapabbi.api.CoredataClient;
+import com.bangsapabbi.api.CoredataClientImpl;
 
 public class FileServiceTest {
 
@@ -29,7 +30,7 @@ public class FileServiceTest {
 
     @Before
     public void setUp() throws Exception {
-        CoredataClient coredataClient = mock(CoredataClient.class);
+        CoredataClient coredataClient = mock(CoredataClientImpl.class);
         Client client = mock(Client.class);
 
         WebTarget webTarget = mock(WebTarget.class);

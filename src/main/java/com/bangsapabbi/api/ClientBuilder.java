@@ -12,6 +12,6 @@ public final class ClientBuilder {
     public static CoredataClient newClient(final String baseUrl,
                                            final String username,
                                            final String password) {
-        return new CoredataClient(baseUrl, username, password);
+        return new CoredataClientImpl(baseUrl, username, password);
     }
 }

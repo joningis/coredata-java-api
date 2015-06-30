@@ -15,4 +15,9 @@ public class CommentService extends AbstractService<Comment> {
                 new TypeToken<ContainerImpl<Comment>>() {
                 }.getType());
     }
+
+    @Override
+    public void delete(final String uuid) {
+        throw new UnsupportedOperationException("Deletion of comments is not supported");
+    }
 }

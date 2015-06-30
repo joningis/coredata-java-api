@@ -2,12 +2,10 @@ package com.bangsapabbi.api.comment;
 
 import java.util.Date;
 import java.util.Set;
-
 import javax.validation.ConstraintViolation;
 import javax.validation.constraints.NotNull;
 
 import com.bangsapabbi.api.common.AbstractValidateableDTO;
-import com.bangsapabbi.api.common.ApiDTO;
 import com.bangsapabbi.api.common.Insertable;
 import com.bangsapabbi.api.common.validation.UUID;
 import com.bangsapabbi.api.common.validation.UUIDValidator;
@@ -32,6 +30,10 @@ public class Comment extends AbstractValidateableDTO<Comment> implements Inserta
 
     private Date time;
 
+    private Comment() {
+
+    }
+
     @Override
     public void setUUID(final String uuid) {
         this.uuid = uuid;
@@ -46,55 +48,60 @@ public class Comment extends AbstractValidateableDTO<Comment> implements Inserta
         return author;
     }
 
-    public void setAuthor(final String author) {
-        this.author = author;
-    }
-
     public String getParentUUID() {
         return parentUUID;
     }
 
-
-
-    public void setParentUUID(final String parentUUID) {
+    private void setParentUUID(final String parentUUID) {
         this.parentUUID = parentUUID;
-    }
-
-    public String getUuid() {
-        return uuid;
-    }
-
-    public void setUuid(final String uuid) {
-        this.uuid = uuid;
     }
 
     public String getResourceUri() {
         return resourceUri;
     }
 
-    public void setResourceUri(final String resourceUri) {
-        this.resourceUri = resourceUri;
-    }
-
     public String getText() {
         return text;
     }
 
-    public void setText(final String text) {
+    private void setText(final String text) {
         this.text = text;
     }
 
     public Date getTime() {
-        return time;
-    }
-
-    public void setTime(final Date time) {
-        this.time = time;
+        return (Date)time.clone();
     }
 
     @Override
     public Set<ConstraintViolation<Comment>> getConstraintViolations() {
         return this.getConstraintViolations(this);
+    }
+
+    public static Builder Builder() {
+        return new Builder();
+    }
+
+
+    public static class Builder {
+        private final Comment comment;
+
+        private Builder() {
+            this.comment = new Comment();
+        }
+
+        public Builder text(String text) {
+            this.comment.setText(text);
+            return this;
+        }
+
+        public Builder parentUUID(String docId) {
+            this.comment.setParentUUID(docId);
+            return this;
+        }
+
+        public Comment build() {
+            return comment;
+        }
     }
 
 }

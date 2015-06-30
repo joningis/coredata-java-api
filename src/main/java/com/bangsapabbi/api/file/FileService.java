@@ -1,10 +1,11 @@
 package com.bangsapabbi.api.file;
 
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
+
+import org.glassfish.jersey.internal.util.Base64;
+
+import java.io.*;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.WebTarget;
@@ -18,6 +19,7 @@ import com.bangsapabbi.api.common.Insertable;
 import com.google.common.base.Preconditions;
 import com.google.gson.reflect.TypeToken;
 
+
 public class FileService extends AbstractService<File> {
 
     public FileService(final CoredataClient coredataClient,
@@ -28,7 +30,6 @@ public class FileService extends AbstractService<File> {
                 new TypeToken<ContainerImpl<File>>() {
                 }.getType());
     }
-
 
 
     /**
@@ -75,23 +76,23 @@ public class FileService extends AbstractService<File> {
             return false;
         }
 
-            final WebTarget myResource = client.target(baseUrl + "/api/v2/" + getTypeString()
-                    + "/" + file.getUUID() + "/content");
-            final Response response = myResource.request(MediaType.APPLICATION_OCTET_STREAM).get();
+        final WebTarget myResource = client.target(baseUrl + "/api/v2/" + getTypeString()
+                + "/" + file.getUUID() + "/content");
+        final Response response = myResource.request(MediaType.APPLICATION_OCTET_STREAM).get();
 
-            try (InputStream inputStream = (InputStream) response.getEntity()) {
+        try (InputStream inputStream = (InputStream) response.getEntity()) {
 
-                try (OutputStream outputStream =
-                             new FileOutputStream(outputFile)) {
+            try (OutputStream outputStream =
+                         new FileOutputStream(outputFile)) {
 
-                    int read;
-                    final byte[] bytes = new byte[1024];
+                int read;
+                final byte[] bytes = new byte[1024];
 
-                    while ((read = inputStream.read(bytes)) != -1) {
-                        outputStream.write(bytes, 0, read);
-                    }
+                while ((read = inputStream.read(bytes)) != -1) {
+                    outputStream.write(bytes, 0, read);
                 }
             }
+        }
 
         return true;
     }
@@ -104,15 +105,80 @@ public class FileService extends AbstractService<File> {
      */
     public void upload(final File file) throws FileNotFoundException {
 
-        this.add(file);
+        // We only want to add the file object if we have a new file, otherwise we just
+        // want to update the content.
+        if (file.getUUID() == null) {
+            this.add(file);
+        }
 
         final WebTarget myResource = client.target(baseUrl + "/api/v2/" + getTypeString()
-                + "/" + file.getUUID() + "/content");
+                + "/" + file.getUUID() + "/content/");
 
         final java.io.File uploadFile = new java.io.File(file.getLocalPath());
 
-        final Response response = myResource.request(MediaType.APPLICATION_OCTET_STREAM)
-                .put(Entity.entity(uploadFile, MediaType.APPLICATION_OCTET_STREAM));
+       final Response response = myResource.request("text/plain")
+                .put( Entity.entity(uploadFile, MediaType.APPLICATION_OCTET_STREAM));
 
+        //   InputStream bigFileContentInputStream = new FileInputStream(uploadFile);
+        // Response response = myResource.request().put(Entity.entity(bigFileContentInputStream, MediaType.APPLICATION_OCTET_STREAM));
+
+/*
+        try {
+            URL url = new URL(baseUrl + "/api/v2/" + getTypeString()
+                    + "/" + file.getUUID() + "/content/");
+            HttpURLConnection httpCon = (HttpURLConnection) url.openConnection();
+            String encoded = new String(Base64.encode("Administrator:Administrator".getBytes()));
+            httpCon.setRequestProperty("Authorization", "Basic " + encoded);
+
+            httpCon.setDoOutput(true);
+            httpCon.setDoInput(true);
+            httpCon.setRequestMethod("PUT");
+            httpCon.setRequestProperty("Content-type", "application/octet-stream");
+            httpCon.setRequestProperty("Content-length", Long.toString(uploadFile.length()+10000));
+
+
+          //  OutputStreamWriter out = new OutputStreamWriter(httpCon.getOutputStream());
+
+            BufferedOutputStream bos = new BufferedOutputStream(httpCon.getOutputStream());
+            BufferedInputStream bis = new BufferedInputStream(new FileInputStream(uploadFile));
+
+            // read byte by byte until end of stream
+            byte[] buf = new byte[512];
+            int r = 1;
+            while((r = bis.read(buf)) > 0) {
+                bos.write(buf, 0, r);
+            }
+            bos.flush();
+            bos.close();
+
+            try {
+
+                InputStream inputStream;
+                int responseCode=((HttpURLConnection)httpCon).getResponseCode();
+                if ((responseCode>= 200) &&(responseCode<=202) ) {
+                    inputStream = ((HttpURLConnection)httpCon).getInputStream();
+                    int j;
+                    while ((j = inputStream.read()) >0) {
+                        System.out.println(j);
+                    }
+
+                } else {
+                    inputStream = ((HttpURLConnection)httpCon).getErrorStream();
+                }
+                ((HttpURLConnection)httpCon).disconnect();
+
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+
+            bos.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+*/
+
+//TODO(joningi): Return repsonse to user
     }
 }

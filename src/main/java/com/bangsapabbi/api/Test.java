@@ -19,6 +19,8 @@ import com.bangsapabbi.api.file.File;
 import com.bangsapabbi.api.file.FileService;
 import com.bangsapabbi.api.folder.Folder;
 import com.bangsapabbi.api.folder.FolderService;
+import com.bangsapabbi.api.nav.Nav;
+import com.bangsapabbi.api.nav.NavService;
 import com.bangsapabbi.api.project.Project;
 import com.bangsapabbi.api.project.ProjectService;
 import com.bangsapabbi.api.space.Space;
@@ -33,8 +35,8 @@ import com.google.common.collect.Lists;
 
 public class Test {
     public static void main(String[] args) {
-        String username = "";
-        String password = "";
+        String username = "Administrator";
+        String password = "Administrator";
         final CoredataClient client = ClientBuilder.newClient(
                 "http://localhost:8100", username, password);
 
@@ -48,37 +50,72 @@ public class Test {
         final Service<Contact> contactService = client.getContactService();
         final CommentService commentService = client.getCommentService();
         final SpaceService spaceService = client.getSpaceService();
+        final NavService navService = client.getNavService();
 
+        File file = new File();
+
+/*
+        file.setTitle("David_Hasselhoff.jpg");
+
+        file.setFilename("David_Hasselhoff.jpg");
+        file.setLocalPath("/tmp/David_Hasselhoff.jpg");
+*/
+        file.setTitle("the_barbecue_bible_steven_raichlen.pdf");
+        file.setFilename("the_barbecue_bible_steven_raichlen.pdf");
+        file.setLocalPath("/tmp/the_barbecue_bible_steven_raichlen.pdf");
+
+        file.setParent("125c2fb6-df22-11e4-97fd-6003088b5c52");
+       // file.setUUID("0a3917c4-def3-11e4-9fea-6003088b5c52");
+
+        try {
+            fileService.upload(file);
+
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        System.out.println("File uploaded");
+
+        Nav nav = navService.get("Active%20Projects/Space/Verkefni%20—%202015-1/grizzly.jpg");
+        System.out.println();
+       /* for (Nav nav : navService.getAll("dir/Active%20Projects/Space/Verkefni%20—%202015-1")) {
+            System.out.println(nav.getType());
+            System.out.println(nav.getName());
+            System.out.println(nav.getId());
+            System.out.println(nav.getSnapshotId());
+            System.out.println(nav.getPath());
+        }
+        */
 
         //
         // Create projects
         // The first one with validation and comment on it.
         // The second one with builder.
         //
-        createProjects(projectService, commentService, spaceService);
+        //createProjects(projectService, commentService, spaceService);
 
 
         //
         // Search for projects
         //
-        searchForProjects(projectService);
+        //searchForProjects(projectService);
 
 
         //
         // Iterate projects and print out tasks and files for each
         //
-        iterateProjects(projectService);
+        //iterateProjects(projectService);
 
 
         //
         // Iterate all users and print out files, tasks and projects for each.
-        iterateUsers(userService);
+        //iterateUsers(userService);
 
 
-        createFolderFileAndComment(projectService, fileService, folderService, commentService);
+        //createFolderFileAndComment(projectService, fileService, folderService, commentService);
 
 
-        updateEnums(valueListService);
+        //updateEnums(valueListService);
 
     }
 
@@ -131,10 +168,11 @@ public class Test {
 
 
             if (file.getUUID() != null) {
-                Comment comment = new Comment();
+                Comment comment = Comment.Builder()
+                        .text("I just love to make random comments on files")
+                        .parentUUID(file.getUUID())
+                        .build();
 
-                comment.setText("I just love to make random comments on files");
-                comment.setParentUUID(file.getUUID());
                 commentService.add(comment);
             }
         }
@@ -209,9 +247,12 @@ public class Test {
             } else {
                 System.out.println(project.getViolationsAsString());
             }
-            Comment comment = new Comment();
-            comment.setText("Party time comment !!!");
-            comment.setParentUUID(project.getUUID());
+
+            Comment comment = Comment.Builder()
+                    .text("Party time comment !!!")
+                    .parentUUID(project.getUUID())
+                    .build();
+
             commentService.add(comment);
 
 
